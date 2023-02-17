@@ -86,8 +86,18 @@ $ git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-in
 **Note**: Please note that we will be downloading and use a specific _tagged_ version of teh benchmark, gathered from my _fork_ of the original `scikit-learn_bench` project. 
 Reasons for this are two:
 
-1. The _tag_ considers the _exact_ same version of code and data used in the experiments. 
+1. The _tag_ considers the _exact_ same version of code and data used in the experiments.
 2. This version of the benchmark also includes an extra utility script that can be used to download all the necessary benchmark data (see next section). This script currently part of a [PR](https://github.com/IntelPython/scikit-learn_bench/pull/129) not yet merged into the official `main` branch.
+
+##### Note on SVC and OpenCL
+
+The optimised version of the Support Vector machine requires `OpenCL` to be installed and configured. To do so, it is necessary to make sure that all the
+necessary libraries are linked in the right location:
+
+```shell
+sudo mkdir -p /etc/OpenCL/vendors/
+sudo bash -c "echo libintelocl.so > /etc/OpenCL/vendors/intel64.icd"
+```
 
 #### Downloading the Benchmark datasets
 
