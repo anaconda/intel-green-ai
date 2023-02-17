@@ -1,0 +1,20 @@
+{
+    "header": [
+        "algorithm",
+        "stage",
+        "device",
+        "input_data:data_order",
+        "input_data:data_type",
+        "input_data:dataset_name",
+        "input_data:rows",
+        "input_data:columns",
+        "input_data:classes",
+        "input_data:n_clusters"
+    ],
+    "comparison_method": {
+        "default": "1 / 2"
+    },
+    "aggregation_metrics": [
+        "average"
+    ]
+}

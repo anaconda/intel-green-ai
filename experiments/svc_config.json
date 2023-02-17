@@ -1,0 +1,227 @@
+{
+    "common": {
+        "lib": "sklearn",
+        "data-format": "pandas",
+        "data-order": "F",
+        "device": [
+            "none"
+        ]
+    },
+    "cases": [
+        {
+            "algorithm": "svm",
+            "dtype": [
+                "float32",
+                "float64"
+            ],
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "gisette",
+                    "training": {
+                        "x": "data/gisette_x_train.npy",
+                        "y": "data/gisette_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/gisette_x_test.npy",
+                        "y": "data/gisette_y_test.npy"
+                    }
+                }
+            ],
+            "C": 1.5e-3,
+            "kernel": "linear"
+        },
+        {
+            "algorithm": "svm",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "higgs_150K",
+                    "training": {
+                        "x": "data/higgs_150K_x_train.npy",
+                        "y": "data/higgs_150K_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/higgs_150K_x_test.npy",
+                        "y": "data/higgs_150K_y_test.npy"
+                    }
+                }
+            ],
+            "C": 1.0,
+            "kernel": "linear"
+        },
+        {
+            "algorithm": "svm",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "sensit",
+                    "training": {
+                        "x": "data/sensit_x_train.npy",
+                        "y": "data/sensit_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/sensit_x_test.npy",
+                        "y": "data/sensit_y_test.npy"
+                    }
+                }
+            ],
+            "C": 500.0,
+            "kernel": "linear"
+        },
+        {
+            "algorithm": "svm",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "epsilon_16K",
+                    "training": {
+                        "x": "data/epsilon_16K_x_train.npy",
+                        "y": "data/epsilon_16K_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/epsilon_16K_x_test.npy",
+                        "y": "data/epsilon_16K_y_test.npy"
+                    }
+                }
+            ],
+            "C": 9.0e2,
+            "kernel": "rbf"
+        },
+        {
+            "algorithm": "nusvc",
+            "dtype": [
+                "float32",
+                "float64"
+            ],
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "a9a",
+                    "training": {
+                        "x": "data/a9a_x_train.npy",
+                        "y": "data/a9a_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/a9a_x_test.npy",
+                        "y": "data/a9a_y_test.npy"
+                    }
+                }
+            ],
+            "nu": 0.25,
+            "kernel": "sigmoid"
+        },
+        {
+            "algorithm": "nusvc",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "mnist",
+                    "training": {
+                        "x": "data/mnist_x_train.npy",
+                        "y": "data/mnist_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/mnist_x_test.npy",
+                        "y": "data/mnist_y_test.npy"
+                    }
+                }
+            ],
+            "nu": 0.5,
+            "kernel": "rbf"
+        },
+        {
+            "algorithm": "svr",
+            "dtype": [
+                "float32",
+                "float64"
+            ],
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "california_housing",
+                    "training": {
+                        "x": "data/california_housing_x_train.npy",
+                        "y": "data/california_housing_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/california_housing_x_test.npy",
+                        "y": "data/california_housing_y_test.npy"
+                    }
+                }
+            ],
+            "C": 0.1,
+            "kernel": "poly"
+        },
+        {
+            "algorithm": "svr",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "twodplanes",
+                    "training": {
+                        "x": "data/twodplanes_x_train.npy",
+                        "y": "data/twodplanes_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/twodplanes_x_test.npy",
+                        "y": "data/twodplanes_y_test.npy"
+                    }
+                }
+            ],
+            "C": 10.0,
+            "kernel": "rbf"
+        },
+        {
+            "algorithm": "nusvr",
+            "dtype": [
+                "float32",
+                "float64"
+            ],
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "fried",
+                    "training": {
+                        "x": "data/fried_x_train.npy",
+                        "y": "data/fried_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/fried_x_test.npy",
+                        "y": "data/fried_y_test.npy"
+                    }
+                }
+            ],
+            "nu": 0.8,
+            "C": 2.0,
+            "kernel": "rbf"
+        },
+        {
+            "algorithm": "nusvr",
+            "dtype": "float32",
+            "dataset": [
+                {
+                    "source": "npy",
+                    "name": "medical_charges_nominal",
+                    "training": {
+                        "x": "data/medical_charges_nominal_x_train.npy",
+                        "y": "data/medical_charges_nominal_y_train.npy"
+                    },
+                    "testing": {
+                        "x": "data/medical_charges_nominal_x_test.npy",
+                        "y": "data/medical_charges_nominal_y_test.npy"
+                    }
+                }
+            ],
+            "nu": 0.5,
+            "C": 10.0,
+            "kernel": "poly",
+            "degree": 2
+        }
+    ]
+}
