@@ -91,21 +91,10 @@ To download the code necessary to run the experiments, it is just necessary to c
 $ git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-intel-green-ai ./anaconda-intel-green-ai
 ```
 
-**Note**: Please note that we will be downloading and use a specific _tagged_ version of teh benchmark, gathered from my _fork_ of the original `scikit-learn_bench` project. 
-Reasons for this are two:
-
+**Note**: Please note that we will be downloading and use a specific _tagged_ version of the benchmark:
 1. The _tag_ considers the _exact_ same version of code and data used in the experiments.
-2. This version of the benchmark also includes an extra utility script that can be used to download all the necessary benchmark data (see next section). This script currently part of a [PR](https://github.com/IntelPython/scikit-learn_bench/pull/129) not yet merged into the official `main` branch.
-
-##### Note on SVC and OpenCL
-
-The optimised version of the Support Vector machine requires `OpenCL` to be installed and configured. To do so, it is necessary to make sure that all the
-necessary libraries are linked in the right location:
-
-```shell
-sudo mkdir -p /etc/OpenCL/vendors/
-sudo bash -c "echo libintelocl.so > /etc/OpenCL/vendors/intel64.icd"
-```
+2. This version of the benchmark also includes an extra utility script that can be used to download all the necessary benchmark data (see next section). This script is currently part of a [PR](https://github.com/IntelPython/scikit-learn_bench/pull/129) not yet merged into the official `main` branch.
+3. 
 
 #### Downloading the Benchmark datasets
 
@@ -119,7 +108,7 @@ $ DATASETSROOT=./data python -m datasets.load_datasets --configs ../intel-green-
 
 This will download the `25` publicly available datasets used in the benchmark experiments. For further information, please refer to the official [documentation](https://github.com/leriomaggio/scikit-learn_bench/blob/anaconda-intel-green-ai/datasets/README.md).
 
-⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will occupy around `18 GB` of disk space.
+⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will require around `18 GB` of disk space.
 
 ## Measuring Energy Consumption
 
@@ -131,14 +120,17 @@ In our experiments, we used a `c5.metal` [Amazon EC2 instance](https://aws.amazo
 
 #### Configure access to RAPL
 
-The `powercap` framework is **not** enabled by default on Ubuntu OS running on AWS instances. Therefore, the first thing to do is to install all the required _kernel modules_:
+The `powercap` framework is **not** enabled by default on Ubuntu OS running on AWS instances. Therefore, the first thing to do is to install all the required _kernel modules_. 
+
+**Note**: Please make sure you are running the following commands using a user account with `sudo` permissions.
 
 ```shell
 $ sudo apt install linux-modules-extra-$(uname -r)
 $ sudo update-initramfs -c -k $(uname -r)
 ```
 
-Once installed, the next step is to dynamically `probe` (i.e. load) these modules into the kernel. To get the names of these modules, we could search for any kernel module including `rapl` in their name by running:
+Afterwards, we need to dynamically `probe` (i.e. load) these modules into the kernel. 
+To get the names of these modules, we could search for any kernel module that includes `rapl` in their name:
 
 ```shell
 $ find /lib/modules/$(uname -r) -name *rapl*
@@ -152,7 +144,7 @@ The output of the `find` command should look similar to:
 /lib/modules/5.15.0-1030-aws/kernel/arch/x86/events/rapl.ko
 ```
 
-To load these modules into the kernel run the following commands:
+Therefore, we can load these modules into the kernel by running the following commands:
 
 ```shell
 $ sudo modprobe rapl
@@ -161,14 +153,14 @@ $ sudo modprobe intel_rapl_msr
 $ sudo modprobe processor_thermal_rapl
 ```
 
-To verify that all went well, we should now be able to see listed the `powercap` folder under `/sys/class/`:
+To verify that all went well, we should now be able to see listed the `powercap` folder under the `/sys/class/` folder:
 
 ```shell
 $ ls /sys/class/powercap/
 intel-rapl  intel-rapl:0  intel-rapl:0:0  intel-rapl:1  intel-rapl:1:0
 ```
 
-That's all! Well done! 🎉 This was the hardest part. The rest from now on will be _piece of cake_. 
+That's all! Well done! 🎉 This was the hardest part. From now on, the rest will be _piece of cake_, I promise. 
 
 #### Tool to monitor energy consumption
 
@@ -177,7 +169,7 @@ We used [`jouleit`](https://powerapi-ng.github.io/jouleit.html) to monitor the e
 To download `jouleit` it is just necessary to clone its GitHub repository:
 
 ```shell
-$ git clone https://github.com/powerapi-ng/jouleit.git
+$ git clone https://github.com/powerapi-ng/jouleit.git <path to>/jouleit
 $ cd jouleit
 ```
 
@@ -192,32 +184,51 @@ The output correspond to the list of headers that the script is able to access, 
 
 **Note**: If `CPU` and `DRAM` won't be present in the output of the previous command, this would mean that the access to RAPL has not been properly configured.
 
-⚠️ **A few notes on privilegies and permissions**
-
-All the RAPL _virtual device_ files require **root privilegies** to be accessed for security reasons. This means that the `jouleit.sh` script requires _root_ to be used:
-
-As a quick workaround  - **to use for the sole sake of this benckmark** - ownership to those files could be changed to allow access. 
-
 ## Running the Benchmark
 
 The [`runners`](./runners) folder contains all the script required to execute the multiple benchmark configurations, _with_ (i.e. `xxx_intel_OPTON.sh`) and _without_ (`xxx_intel_OPTOFF.sh`) Intel AI Acceleration. 
 
 These scripts will be used in conjuction with `jouleit` to also monitor energy consumption of each experiment.
 
-First, I would recommend to copy the `experiments` folder with all the configuration files in the `anaconda-intel-green-ai` folder where the code has been downloaded:
+First, I would recommend copying the `experiments` folder in the main benchmark folder, i.e. the `anaconda-intel-green-ai` folder created in step 2.1:
 
 ```shell
 $ cp -r ./experiments <path to>/anaconda-intel-green-ai
 ```
 
-Similarly, we could copy all the runner-scripts in the `anacodna-intel-green-ai` main folder:
+Similarly, we should copy all the runner-scripts in the `anaconda-intel-green-ai` main folder, as well:
 
 ```shell
 $ cp ./runners/run_* <path to>/anaconda-intel-green-ai
 ```
 
-To run benchmark, whilst also monitoring energy consumption:
+This is required to make sure that all the paths and dependencies will be available when starting the benchmark execution.
+
+Now the last step: executing a single benchmark experiment, whilst also monitoring energy consumption using `jouleit`:
 
 ```shell
-$ ../jouleit/jouleit.sh ./run_XXX.sh
+$ cd <path to>/anaconda-intel-green-ai
+$ <path to>/jouleit/jouleit.sh ./run_XXX.sh
+```
+
+⚠️ **A few notes on privilegies and permissions**
+
+All the RAPL _virtual device_ files require **root privilegies** to be accessed for security reasons. This means that the `jouleit.sh` script requires _root_ to be used. 
+However, if we would run all the commands using directly the `root` user (e.g. using `sudo`), we would also need to setup 
+the whole conda environment for root, and that would be unpractical. 
+Therefore, as a _workaround_  **for the sole sake of this benckmark experiments** - we could change the ownership of those files to grant access:
+
+
+```shell
+$ sudo chown ubuntu:ubuntu /sys/class/powercap/intel-rapl*
+```
+
+##### Running `Support Vector Machines` experiments
+
+The optimised version of the Support Vector machine included in `sklearnex` requires `OpenCL` to be installed and configured. 
+To do so, please make sure that all the required libraries are linked in the right location:
+
+```shell
+sudo mkdir -p /etc/OpenCL/vendors/
+sudo bash -c "echo libintelocl.so > /etc/OpenCL/vendors/intel64.icd"
 ```
