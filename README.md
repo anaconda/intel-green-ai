@@ -11,13 +11,21 @@ Please make sure that your machine architecture/operating system configuration i
 ### Sections
 
 1. [Conda environment](#set-up-the-conda-environment)
+
 2. [Data and Code Availability](#data-and-code-availability)
+    
     2.1 [Download Code](#download-the-machine-learning-benchmark-code)
+    
     2.2 [Download Data](#downloading-the-benchmark-datasets)
+
 3. [Measuring Energy Consumption](#measuring-energy-consumption)
+    
     3.1 [Configure RAPL access](#configure-access-to-rapl) 
+    
     3.2 [Tool to monitor energy consumption](#tool-to-monitor-energy-consumption)
+
 4. [Running the Benchmark](#running-the-benchmark)
+
 ### Set up the `conda` environment
 
 The repository provides an  [`environment.yml`](./environment.yml) file that can be used to easy replicate the `conda` environment used in the experiments.
