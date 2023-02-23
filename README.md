@@ -234,7 +234,7 @@ Therefore, as a _workaround_  **for the sole sake of this benckmark experiments*
 
 
 ```shell
-sudo chown ubuntu:ubuntu /sys/class/powercap/intel-rapl*
+sudo chown -R $USER:$USER /sys/class/powercap/intel-rapl*
 ```
 
 ##### Running `Support Vector Machines` experiments
