@@ -101,7 +101,7 @@ In more details:
 To download the code necessary to run the experiments, it is just necessary to clone the reference repository from GitHub: 
 
 ```shell
-git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-intel-green-ai ./anaconda-intel-green-ai
+git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-intel-green-ai ./green-ai-benchmark
 ```
 
 **Note**: Please note that we will be downloading and use a specific _tagged_ version of the benchmark:
@@ -115,7 +115,7 @@ It is highly recommended to **download** all the necessary datasets **before** r
 Assuming that you have cloned the benchmark code directly within the `intel-green-ai` main folder, 
 to download all the dataset, run the following command:
 ```shell
-cd anaconda-intel-green-ai
+cd green-ai-benchmark
 DATASETSROOT=./data python -m datasets.load_datasets --configs ../experiments/skl_public_config.json
 ```
 
@@ -174,7 +174,7 @@ ls /sys/class/powercap/
 intel-rapl  intel-rapl:0  intel-rapl:0:0  intel-rapl:1  intel-rapl:1:0
 ```
 
-That's all! Well done! 🎉 This was the hardest part. From now on, the rest will be _piece of cake_, I promise. 
+That's all! Well done! 🎉 This was the hardest part. From now on, the rest will be _piece of cake_, I promise.
 
 #### Tool to monitor energy consumption
 
@@ -204,16 +204,16 @@ The [`runners`](./runners) folder contains all the script required to execute th
 
 These scripts will be used in conjuction with `jouleit` to also monitor energy consumption of each experiment.
 
-First, I would recommend copying the `experiments` folder in the main benchmark folder, i.e. the `anaconda-intel-green-ai` folder created in step 2.1:
+First, I would recommend copying the `experiments` folder in the main benchmark folder, i.e. the `green-ai-benchmark` folder created in step 2.1:
 
 ```shell
-cp -r ./experiments <path to>/anaconda-intel-green-ai
+cp -r ./experiments <path to>/green-ai-benchmark
 ```
 
-Similarly, we should copy all the runner-scripts in the `anaconda-intel-green-ai` main folder, as well:
+Similarly, we should copy all the runner-scripts in the `green-ai-benchmark` main folder, as well:
 
 ```shell
-cp ./runners/run_* <path to>/anaconda-intel-green-ai
+cp ./runners/run_* <path to>/green-ai-benchmark
 ```
 
 This is required to make sure that all the paths and dependencies will be available when starting the benchmark execution.
@@ -221,7 +221,7 @@ This is required to make sure that all the paths and dependencies will be availa
 Now the last step: executing a single benchmark experiment, whilst also monitoring energy consumption using `jouleit`:
 
 ```shell
-cd <path to>/anaconda-intel-green-ai
+cd <path to>/green-ai-benchmark
 <path to>/jouleit/jouleit.sh ./run_XXX.sh
 ```
 
