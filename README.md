@@ -112,15 +112,16 @@ git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-inte
 
 It is highly recommended to **download** all the necessary datasets **before** running the experiments. This would avoid any issue during the execution derived by connectivity failures during the download. Moreover, this would also favour a fairer comparisong between multiple experiments, by not including any accidental overhead caused by network failures during the execution.
 
-To download all the dataset, run the following command:
+Assuming that you have cloned the benchmark code directly within the `intel-green-ai` main folder, 
+to download all the dataset, run the following command:
 ```shell
 cd anaconda-intel-green-ai
-DATASETSROOT=./data python -m datasets.load_datasets --configs ../intel-green-ai/experiments/skl_public_config.json
+DATASETSROOT=./data python -m datasets.load_datasets --configs ../experiments/skl_public_config.json
 ```
 
 This will download the `25` publicly available datasets used in the benchmark experiments. For further information, please refer to the official [documentation](https://github.com/leriomaggio/scikit-learn_bench/blob/anaconda-intel-green-ai/datasets/README.md).
 
-⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will require around `18 GB` of disk space. 
+⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will require around `18 GB` of disk space.
 Moreover, if you are executing the download on a remote machine, it is **higly** recommended to run the previous command within a [`tmux`](https://github.com/tmux/tmux/wiki) session.
 
 ## Measuring Energy Consumption
@@ -133,7 +134,7 @@ In our experiments, we used a `c5.metal` [Amazon EC2 instance](https://aws.amazo
 
 #### Configure access to RAPL
 
-The `powercap` framework is **not** enabled by default on Ubuntu OS running on AWS instances. Therefore, the first thing to do is to install all the required _kernel modules_. 
+The `powercap` framework is **not** enabled by default on Ubuntu OS running on AWS instances. Therefore, the first thing to do is to install all the required _kernel modules_.
 
 **Note**: Please make sure you are running the following commands using a user account with `sudo` permissions.
 
