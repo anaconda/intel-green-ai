@@ -1,6 +1,6 @@
 ## Greener Machine Learning Computing with Intel AI Acceleration
 
-This repository contains the experimental package attached to the article "Greener Machine Learning Computing with Intel AI Acceleration" [_link online version here_]
+This repository contains the experimental package attached to the article "Greener Machine Learning Computing with Intel AI Acceleration"
 
 This documents provides detailed instructions on how to replicate the experimental settings used to measure the **energy consumption** of Machine Learning pipelines as defined in the [IntelPython/Machine Learning Benchmark](https://github.com/IntelPython/scikit-learn_bench).
 
