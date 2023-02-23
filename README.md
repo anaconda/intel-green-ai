@@ -13,12 +13,12 @@ the following commands in your terminal:
 
 (On Linux)
 ```
-$ lscpu | grep -e "sse2\|avx"
+lscpu | grep -e "sse2\|avx"
 ```
 
 (on Mac OSX)
 ```
-$ sysctl -a | grep cpu.feat
+sysctl -a | grep cpu.feat
 ```
 
 ### Sections
@@ -50,13 +50,13 @@ Alternatively, it is recommended to  [download](https://www.anaconda.com/product
 Once conda is available, please run the following command in the Terminal:
 
 ```shell
-$ conda env create -f environment.yml
+conda env create -f environment.yml
 ```
 
 This will create a new `green-ai` conda environment. To double check this, please execute:
 
 ```shell
-$ conda info --envs | grep "green-ai"
+conda info --envs | grep "green-ai"
 ```
 
 You should get an output similar to: 
@@ -67,14 +67,14 @@ green-ai                 /Users/leriomaggio/anaconda3/envs/green-ai
 
 The **last step** is to _activate_ the new conda environment:
 ```shell
-$ conda activate green-ai
+conda activate green-ai
 ```
 
 **Note** 
 Please also make sure to run the latest version of `conda` on your machine:
 
 ```shell
-$ conda update -n base conda
+conda update -n base conda
 ```
 
 ### Data and Code Availability
@@ -101,7 +101,7 @@ In more details:
 To download the code necessary to run the experiments, it is just necessary to clone the reference repository from GitHub: 
 
 ```shell
-$ git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-intel-green-ai ./anaconda-intel-green-ai
+git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-intel-green-ai ./anaconda-intel-green-ai
 ```
 
 **Note**: Please note that we will be downloading and use a specific _tagged_ version of the benchmark:
@@ -114,8 +114,8 @@ It is highly recommended to **download** all the necessary datasets **before** r
 
 To download all the dataset, run the following command:
 ```shell
-$ cd anaconda-intel-green-ai
-$ DATASETSROOT=./data python -m datasets.load_datasets --configs ../intel-green-ai/experiments/skl_public_config.json
+cd anaconda-intel-green-ai
+DATASETSROOT=./data python -m datasets.load_datasets --configs ../intel-green-ai/experiments/skl_public_config.json
 ```
 
 This will download the `25` publicly available datasets used in the benchmark experiments. For further information, please refer to the official [documentation](https://github.com/leriomaggio/scikit-learn_bench/blob/anaconda-intel-green-ai/datasets/README.md).
@@ -138,15 +138,15 @@ The `powercap` framework is **not** enabled by default on Ubuntu OS running on A
 **Note**: Please make sure you are running the following commands using a user account with `sudo` permissions.
 
 ```shell
-$ sudo apt install linux-modules-extra-$(uname -r)
-$ sudo update-initramfs -c -k $(uname -r)
+sudo apt install linux-modules-extra-$(uname -r)
+sudo update-initramfs -c -k $(uname -r)
 ```
 
 Afterwards, we need to dynamically `probe` (i.e. load) these modules into the kernel. 
 To get the names of these modules, we could search for any kernel module that includes `rapl` in their name:
 
 ```shell
-$ find /lib/modules/$(uname -r) -name *rapl*
+find /lib/modules/$(uname -r) -name *rapl*
 ```
 The output of the `find` command should look similar to:
 
@@ -160,16 +160,16 @@ The output of the `find` command should look similar to:
 Therefore, we can load these modules into the kernel by running the following commands:
 
 ```shell
-$ sudo modprobe rapl
-$ sudo modprobe intel_rapl_common
-$ sudo modprobe intel_rapl_msr
-$ sudo modprobe processor_thermal_rapl
+sudo modprobe rapl
+sudo modprobe intel_rapl_common
+sudo modprobe intel_rapl_msr
+sudo modprobe processor_thermal_rapl
 ```
 
 To verify that all went well, we should now be able to see listed the `powercap` folder under the `/sys/class/` folder:
 
 ```shell
-$ ls /sys/class/powercap/
+ls /sys/class/powercap/
 intel-rapl  intel-rapl:0  intel-rapl:0:0  intel-rapl:1  intel-rapl:1:0
 ```
 
@@ -182,14 +182,14 @@ We used [`jouleit`](https://powerapi-ng.github.io/jouleit.html) to monitor the e
 To download `jouleit` it is just necessary to clone its GitHub repository:
 
 ```shell
-$ git clone https://github.com/powerapi-ng/jouleit.git <path to>/jouleit
-$ cd jouleit
+git clone https://github.com/powerapi-ng/jouleit.git <path to>/jouleit
+cd jouleit
 ```
 
 **To verify** that `jouleit` works and that it's able to read data from RAPL, we could run the script using the `-l` option:
 
 ```shell
-$ ./jouleit.sh -l
+./jouleit.sh -l
 CPU;DRAM;DURATION;EXIT_CODE
 ```
 
@@ -206,13 +206,13 @@ These scripts will be used in conjuction with `jouleit` to also monitor energy c
 First, I would recommend copying the `experiments` folder in the main benchmark folder, i.e. the `anaconda-intel-green-ai` folder created in step 2.1:
 
 ```shell
-$ cp -r ./experiments <path to>/anaconda-intel-green-ai
+cp -r ./experiments <path to>/anaconda-intel-green-ai
 ```
 
 Similarly, we should copy all the runner-scripts in the `anaconda-intel-green-ai` main folder, as well:
 
 ```shell
-$ cp ./runners/run_* <path to>/anaconda-intel-green-ai
+cp ./runners/run_* <path to>/anaconda-intel-green-ai
 ```
 
 This is required to make sure that all the paths and dependencies will be available when starting the benchmark execution.
@@ -220,8 +220,8 @@ This is required to make sure that all the paths and dependencies will be availa
 Now the last step: executing a single benchmark experiment, whilst also monitoring energy consumption using `jouleit`:
 
 ```shell
-$ cd <path to>/anaconda-intel-green-ai
-$ <path to>/jouleit/jouleit.sh ./run_XXX.sh
+cd <path to>/anaconda-intel-green-ai
+<path to>/jouleit/jouleit.sh ./run_XXX.sh
 ```
 
 ⚠️ **A few notes on privilegies and permissions**
@@ -233,7 +233,7 @@ Therefore, as a _workaround_  **for the sole sake of this benckmark experiments*
 
 
 ```shell
-$ sudo chown ubuntu:ubuntu /sys/class/powercap/intel-rapl*
+sudo chown ubuntu:ubuntu /sys/class/powercap/intel-rapl*
 ```
 
 ##### Running `Support Vector Machines` experiments
