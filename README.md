@@ -8,6 +8,19 @@ These experiments compare the performance of stock (i.e. non-optimized) `scikit-
 
 Please make sure that your machine architecture/operating system configuration is [supported](https://intel.github.io/scikit-learn-intelex/system-requirements.html) by Intel®   Acceleration before proceeding.
 
+To quickly check that your computer is supported by Intel Acceleration technology, you could run
+the following commands in your terminal:
+
+(On Linux)
+```
+$ lscpu | grep -e "sse2\|avx"
+```
+
+(on Mac OSX)
+```
+$ sysctl -a | grep cpu.feat
+```
+
 ### Sections
 
 1. [Conda environment](#set-up-the-conda-environment)
