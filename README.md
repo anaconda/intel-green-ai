@@ -94,7 +94,6 @@ $ git clone https://github.com/leriomaggio/scikit-learn_bench.git -b anaconda-in
 **Note**: Please note that we will be downloading and use a specific _tagged_ version of the benchmark:
 1. The _tag_ considers the _exact_ same version of code and data used in the experiments.
 2. This version of the benchmark also includes an extra utility script that can be used to download all the necessary benchmark data (see next section). This script is currently part of a [PR](https://github.com/IntelPython/scikit-learn_bench/pull/129) not yet merged into the official `main` branch.
-3. 
 
 #### Downloading the Benchmark datasets
 
@@ -108,7 +107,8 @@ $ DATASETSROOT=./data python -m datasets.load_datasets --configs ../intel-green-
 
 This will download the `25` publicly available datasets used in the benchmark experiments. For further information, please refer to the official [documentation](https://github.com/leriomaggio/scikit-learn_bench/blob/anaconda-intel-green-ai/datasets/README.md).
 
-⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will require around `18 GB` of disk space.
+⚠️ **Please be aware** that this may take several minutes to complete, depending on your Internet connectivity, and it will require around `18 GB` of disk space. 
+Moreover, if you are executing the download on a remote machine, it is **higly** recommended to run the previous command within a [`tmux`](https://github.com/tmux/tmux/wiki) session.
 
 ## Measuring Energy Consumption
 
